@@ -7,11 +7,12 @@ Conventional UAV-based remote sensing utilizes standard coverage algorithms to s
 The objective of this project is to overcome this inefficiency by developing a dynamic, learning-based search strategy designed to autonomously locate and quantify target plant species within an a priori unknown environment. The video below shows a photorealistic simulation of an autonomous quadrotor conducting plant search using the Ant Colony Optimization route-planning algorithm. The simulation was conducted using Unreal Engine and MATLAB Simulink.
 <figure>
   <video src="media/UE_simu.mp4" width="600" autoplay loop muted playsinline></video>
-  <figcaption><em>Fig. 1: Photorealistic simulation using Unreal Engine and MATLAB.</em></figcaption>
+  <figcaption><em>Video. 1: Photorealistic simulation using Unreal Engine and MATLAB.</em></figcaption>
 </figure>
 
 ## Methodology
 This project presents two distinct approaches for terrain exploration. Instead of scanning blindly, the system utilizes high-level decision-making algorithms to learn the spatial distribution of the environment and prioritize sectors where target discoveries are most probable. The two approaches are:
-1. Reinforcement Learning: Ant Colony Optimization (ACO) for trajectory generation, guided by a UCB1 algorithm for high-level sector selection.
-2. Supervised Learning: Ant Colony Optimization (ACO) for trajectory generation, guided by a Multi-Layer Perceptron (MLP) for predictive sector value estimation.
+1. **Reinforcement Learning:** Ant Colony Optimization (ACO) for trajectory generation, guided by a UCB1 algorithm for high-level sector selection.
+2. **Supervised Learning:** Ant Colony Optimization (ACO) for trajectory generation, guided by a Multi-Layer Perceptron (MLP) for predictive sector value estimation.
 
+The terrain of interest is modeled as a 2D grid of dimension *I* X *J* shown in Fig. 1 where each cell $s_{ij}$ represents a specific geographic area called a sector.
