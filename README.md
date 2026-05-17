@@ -2,9 +2,13 @@
 
 ## Motivation
 Conventional UAV-based remote sensing utilizes standard coverage algorithms to survey a designated area. These methods typically employ a "lawnmower" pattern, executing a rigid, zig-zag flight path to ensure complete coverage of the terrain. While exhaustive, this approach is highly inefficient when searching for a specific target plant species, as it results in the collection of vast amounts of irrelevant data.
-<video src="media/UE_simu.mp4" width="600" autoplay loop muted playsinline></video>
 
-The objective of this project is to overcome this inefficiency by developing a dynamic, learning-based search strategy designed to autonomously locate and quantify target plant species within an a priori unknown environment.
+
+The objective of this project is to overcome this inefficiency by developing a dynamic, learning-based search strategy designed to autonomously locate and quantify target plant species within an a priori unknown environment. The video below shows a photorealistic simulation of an autonomous quadrotor conducting plant search using the Ant Colony Optimization route-planning algorithm. The simulation was conducted using Unreal Engine and MATLAB Simulink.
+<figure>
+  <video src="media/UE_simu.mp4" width="600" autoplay loop muted playsinline></video>
+  <figcaption><em>Fig. 1: Photorealistic simulation using Unreal Engine and MATLAB.</em></figcaption>
+</figure>
 
 ## Methodology
 This project presents two distinct approaches for terrain exploration. Instead of scanning blindly, the system utilizes high-level decision-making algorithms to learn the spatial distribution of the environment and prioritize sectors where target discoveries are most probable. The two approaches are:
