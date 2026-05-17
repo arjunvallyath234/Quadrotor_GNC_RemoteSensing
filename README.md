@@ -16,7 +16,7 @@ This project presents two distinct approaches for terrain exploration. Instead o
 2. **Supervised Learning:** Ant Colony Optimization (ACO) for trajectory generation, guided by a Multi-Layer Perceptron (MLP) for predictive sector value estimation.
 
 The terrain of interest is modeled as a 2D grid of dimension $I \times J$ shown in Fig. 1 where each cell $s_{ij}$ represents a specific geographic area called a sector. The dimension of the grid is user defined. 
-The agent selects a target sector $s_{ij}$ to visit from $ S \in \Mathbb{R}^{I \times J}$
+The agent selects a target sector $s_{ij}$ to visit from $S \in \Mathbb{R}^{I \times J}$
 
 
 
