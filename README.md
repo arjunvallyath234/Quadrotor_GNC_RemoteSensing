@@ -2,7 +2,7 @@
 
 ## Motivation
 Conventional UAV-based remote sensing utilizes standard coverage algorithms to survey a designated area. These methods typically employ a "lawnmower" pattern, executing a rigid, zig-zag flight path to ensure complete coverage of the terrain. While exhaustive, this approach is highly inefficient when searching for a specific target plant species, as it results in the collection of vast amounts of irrelevant data.
-![UAV Path Planning Animation](media/UE_simu.mp4)
+<video src="media/UE_simu.mp4" width="600" autoplay loop muted playsinline></video>
 
 The objective of this project is to overcome this inefficiency by developing a dynamic, learning-based search strategy designed to autonomously locate and quantify target plant species within an a priori unknown environment.
 
