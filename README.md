@@ -21,9 +21,18 @@ The terrain of interest is modeled as a 2D grid of dimension $I \times J$ shown 
   <figcaption><em>Fig. 1: Partition of the terrain of interest into sectors.</em></figcaption>
 </figure>
 The agent selects a target sector $s_{ij}$ to visit from $S \in \mathbb{R}^{I \times J}$  based on the quantity of target plants recorded within that specific sector. An example of target plant species detection during low-altitude flight is shown in Fig. 28, where target plants were detected in sectors 6 and 8. The UCB TPS2 algorithm suggests the center coordinate of the sector to visit to maximize the likelihood of further discoveries. However, DEE-ACS may still be unable to include the coordinate suggested by UCB-TPS2 if the available energy budget is insufficient.
+
 <figure>
   <img src="media/UCB_TPS2_logic.png" width="600">
   <figcaption><em>Fig. 2: Target plant species detection during low altitude flight.</em></figcaption>
+</figure>
+
+## Ant Colony Optimization
+To generate optimal flight paths for the UAV, the system utilizes an adapted version of the Ant Colony Optimization (ACO) algorithm designed to solve the Orienteering Problem (OP). In this framework, the vehicle's flight path is explicitly constrained by a total travel budget, which is defined by the available onboard battery energy. Unlike traditional path planning that only calculates geometric distance, this modified ACO algorithm incorporates a comprehensive aerodynamic cost function. The cost associated with traversing between sectors accounts for both the physical distance and the aerodynamic drag caused by environmental wind vectors. By simulating artificial ants that deposit pheromones along candidate paths, the algorithm evaluates trajectories based on the trade-off between maximizing target discovery rewards and minimizing energy expenditure. Ultimately, the ACO algorithm converges on a flight trajectory that yields the maximum possible information gain while strictly ensuring the UAV returns safely within its operational battery limits.
+
+<figure>
+  <img src="media/ACO_map.gif" width="600" >
+  <figcaption><em>Fig. 3: Path planning by ACO.</em></figcaption>
 </figure>
 
 
@@ -34,9 +43,27 @@ The agent selects a target sector $s_{ij}$ to visit from $S \in \mathbb{R}^{I \t
 
 
 
+## References
 
+<div style="text-indent: -25px; margin-left: 25px; margin-bottom: 10px;">
+  [^1]: Dorigo, M., Maniezzo, V., & Colorni, A. (1996). "Ant system: optimization by a colony of cooperating agents." <em>IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics)</em>, 26(1), 29–41.
+</div>
 
+<div style="text-indent: -25px; margin-left: 25px; margin-bottom: 10px;">
+  [^2]: Liang, Y.-C., & Smith, A. E. (2006). "An ant colony approach to the orienteering problem." <em>Journal of the Chinese Institute of Industrial Engineers</em>, 23(5), 403–414.
+</div>
 
+<div style="text-indent: -25px; margin-left: 25px; margin-bottom: 10px;">
+  [^3]: Bouneffouf, D., Rish, I., & Aggarwal, C. (2020). "Survey on applications of multi-armed and contextual bandits." in <em>2020 IEEE Congress on Evolutionary Computation (CEC)</em>, IEEE, pp. 1–8.
+</div>
+
+<div style="text-indent: -25px; margin-left: 25px; margin-bottom: 10px;">
+  [^4]: Elena, G., Milos, K., & Eugene, I. (2021). "Survey of multiarmed bandit algorithms applied to recommendation systems." <em>International Journal of Open Information Technologies</em>, 9(4), 12–27.
+</div>
+
+<div style="text-indent: -25px; margin-left: 25px; margin-bottom: 10px;">
+  [^5]: Govers, F. X. (2018). <em>Artificial Intelligence for Robotics: Build intelligent robots that perform human tasks using AI techniques</em>. Packt Publishing Ltd.
+</div>
 
 
 <script>
