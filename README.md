@@ -17,11 +17,21 @@ This project presents two distinct approaches for terrain exploration. Instead o
 
 The terrain of interest is modeled as a 2D grid of dimension $I \times J$ shown in Fig. 1 where each cell $s_{ij}$ represents a specific geographic area called a sector. The dimension of the grid is user defined. 
 <figure>
-  <img src="media/UCB_TS2_Sector.png" width="600">
+  <img src="media/UCB_TS2_Sector.png" width="300">
   <figcaption><em>Fig. 1: Partition of the terrain of interest into sectors.</em></figcaption>
 </figure>
-
 The agent selects a target sector $s_{ij}$ to visit from $S \in \mathbb{R}^{I \times J}$  based on the quantity of target plants recorded within that specific sector. An example of target plant species detection during low-altitude flight is shown in Fig. 28, where target plants were detected in sectors 6 and 8. The UCB TPS2 algorithm suggests the center coordinate of the sector to visit to maximize the likelihood of further discoveries. However, DEE-ACS may still be unable to include the coordinate suggested by UCB-TPS2 if the available energy budget is insufficient.
+<figure>
+  <img src="media/UCB_TPS2_logic.png" width="600">
+  <figcaption><em>Fig. 2: Target plant species detection during low altitude flight.</em></figcaption>
+</figure>
+
+
+
+
+
+
+
 
 
 
