@@ -36,7 +36,11 @@ To generate optimal flight paths for the UAV, the system utilizes an adapted ver
 </figure>
 
 ##  Upper confidence bound (UCB1) - Reinforcement Learning
-The 2D grid of sectors $S \in \mathbb{R}^{I \times J}$, is flattened to a 1D vector $s \in \mathbb{R}^{n_s}$, which is given as $s = \[s1,\dots ,s_{n_s}\]$. Each discovery of a target plant initiates a timestep in UCB1 algorithm. At each timestep, the reward, the mean reward, and the UCB scores of all sectors are updated  [3]. Over time, the sectors that contribute to more discoveries will exhibit a higher average reward. Conversely, the UCB score of less frequently chosen sectors can increase to encourage exploration.
+The 2D grid of sectors $S \in \mathbb{R}^{I \times J}$, is flattened to a 1D vector $s \in \mathbb{R}^{n_s}$, which is given as $s = \[s1,\dots ,s_{n_s}\]$. The image processing algorithm generates the set of coordinates
+of discovered target plant species in the terrain of interest during low-altitude flight, along with their corresponding canopy cover, denoted as $\tilde{\lambda}$, and $\tilde{\mathfrak{c}}$, respectively, and
+they have a dynamic size. Each discovery of a target plant initiates a timestep in UCB1 algorithm. The UCB1 selects the sector to visit, and the reward for a sector is given by,
+$$r_i(\tilde{t}) = \sum_{\mathfrak{p}=1}^{|\tilde{\lambda}(\tilde{t})|} \mathbb{I}( \tilde{\lambda}_\mathfrak{p} \in s_i ) \cdot \tilde{\mathfrak{c}}_\mathfrak{p}$$
+where $\tilde{t}$ is the timestep, $\mathbb{I}(\cdot)$  denotes the indicator function, which equals 1 if the condition is true and 0 otherwise. At each timestep, the reward, the mean reward, and the UCB scores of all sectors are updated  [3]. Over time, the sectors that contribute to more discoveries will exhibit a higher average reward. Conversely, the UCB score of less frequently chosen sectors can increase to encourage exploration.
 
 
 
