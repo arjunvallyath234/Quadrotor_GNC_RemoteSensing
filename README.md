@@ -39,13 +39,24 @@ To generate optimal flight paths for the UAV, the system utilizes an adapted ver
 The 2D grid of sectors $S \in \mathbb{R}^{I \times J}$, is flattened to a 1D vector $s \in \mathbb{R}^{n_s}$, which is given as $s = \[s1,\dots ,s_{n_s}\]$. The image processing algorithm generates the set of coordinates
 of discovered target plant species in the terrain of interest during low-altitude flight, along with their corresponding canopy cover, denoted as $\tilde{\lambda}$, and $\tilde{\mathfrak{c}}$, respectively, and
 they have a dynamic size. Each discovery of a target plant initiates a timestep in UCB1 algorithm. The UCB1 selects the sector to visit, and the reward for a sector is given by,
+
 $$r_i(\tilde{t}) = \sum_{\mathfrak{p}=1}^{|\tilde{\lambda}(\tilde{t})|} \mathbb{I}( \tilde{\lambda}_\mathfrak{p} \in s_i ) \cdot \tilde{\mathfrak{c}}_\mathfrak{p}$$
+
 where $\tilde{t}$ is the timestep, $\mathbb{I}(\cdot)$  denotes the indicator function, which equals 1 if the condition is true and 0 otherwise. At each timestep, the reward, the mean reward, and the UCB scores of all sectors are updated  [3]. Over time, the sectors that contribute to more discoveries will exhibit a higher average reward. Conversely, the UCB score of less frequently chosen sectors can increase to encourage exploration.
 
+## Multi-layer Perceptron based value prediction - Superviced Learning
+The neural network (NN) is trained using an exploration logic, which provides the desired values for supervised offline training. This allows the trained model to generalize the exploration logic and perform this operation in any unknown fields. To find the optimal NN architecture, neural architecture search (NAS) is conducted. Then, the learning rate and activation function are selected using hyperparameter optimization (HPO). To conduct HPO and NAS, an AI optimization library called Optuna [6] is used. The Optuna library can automatically build multiple different NN structures, test different learning rates, and test different activation functions, and the best model is selected from the trial results.
 
+The environment for training the NN is a spatial exploration environment, which is a 2D field divided into a grid of sectors given by $s = \[s1,\dots,s_{n_s}\]$. Random planar coordinates and a random canopy score are generated for each sector to simulate target plant discovery during the training phase. The observation is a state vector given as $obs = \[x_i,y_i,n_i,r_i\]$, where $x_i$ and $y_i$ are the planar center coordinates of
+sector $i$, $n_i$ is the number of times sector $i$ has been visited, and $r_i$ is the current score of sector $i$. The desired Q-score for sector $i$ is given by,
 
+$$Q(s_i) = \max\left(0,\; d_q + 0.5 r_i - 0.5 n_i \right)$$
 
+where $d_q$ is the distance between the center of sector $i$ and the quadrotor. The decision-making MLP-based policy is given by,
 
+$$a_t = \pi(s) = \arg\max_{s_i \in s} Q(s_i)$$
+
+where $a_t$ denotes the action, representing the selected sector.
 
 ## References
 
@@ -68,6 +79,11 @@ where $\tilde{t}$ is the timestep, $\mathbb{I}(\cdot)$  denotes the indicator fu
 <div style="text-indent: -25px; margin-left: 25px; margin-bottom: 10px;">
   [5] Govers, F. X. (2018). <em>Artificial Intelligence for Robotics: Build intelligent robots that perform human tasks using AI techniques</em>. Packt Publishing Ltd.
 </div>
+
+<div style="text-indent: -25px; margin-left: 25px; margin-bottom: 10px;">
+  [6]: Akiba, T., Sano, S., Yanase, T., Ohta, & Koyama, M. (2019). "Optuna: A next-generation hyperparameter optimization framework." in <em>Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining</em>, pp. 2623–2631.
+</div>
+
 
 
 <script>
