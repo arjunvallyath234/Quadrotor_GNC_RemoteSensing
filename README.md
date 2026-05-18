@@ -64,15 +64,42 @@ The algorithm is tested in a ROS + PX4 simulation environment, where the Robot O
 
 Fig. 4 shows the Gazebo world representing a heterogeneous terrain. The place where the user is located is called the base. In this gazebo world, the base is located at the centre of the terrain of interest, indicated by a white cylinder. The plants growing in the terrain of interest are represented by green-colored cubes. Cubes with random sizes, varying shades of green, and random locations are spawned in the Gazebo world, reflecting that different plant species can have the same shape, grow in random locations, and exhibit different shades of green. 
 <figure>
-  <img src="media/gazebo_env.png" width="300" >
+  <img src="media/gazebo_env.png" width="600" >
   <figcaption><em>Fig. 4: Gazebo world representing terrain of interest.</em></figcaption>
 </figure>
 The targets are the light-colored plants between Hue, Saturation, and Value (HSV) range [50, 100, 140] to [70, 255, 255], highlighted by a red bounding box in the high altitude image shown in Fig.5. The scores of the cubes are proportional to their sizes and are normalized using max normalization, which is given as: the score equals the pixel area of the current contour divided by the area of the largest contour found so far in
 the frame.
 <figure>
-  <img src="media/high_alt_img_gazebo.png" width="300" >
+  <img src="media/high_alt_img_gazebo.png" width="600" >
   <figcaption><em>Fig. 5: High altitude image of the terrain of interest in the gazebo world.</em></figcaption>
 </figure>
+
+ The Optuna runs mini training sessions with different combinations of neural network structures, learning rates, and activation functions, and identifies the best-performing configuration. The number of trials has been set at 30, which means that Optuna will create 30 different neural networks. The learning rate range was set from $1 \times 10^{−4}$ to $1 \times 10^{−2}$, and three activation functions, ReLu, Tanh, and LeakyReLu were used. Each of the 30 neural network models is trained for 50 epochs to evaluate whether the architecture is good or bad. Table 1 shows the trial results. It can be observed that the model in trial 27, with LeakyReLU activation, a learning rate of 0.00402, three layers, and 128 neurons in each layer, achieves the minimum loss and is therefore selected.
+<figure>
+  <img src="media/optuna.png" width="600" >
+  <figcaption><em>Table 1: Optuna hyperparameter optimization results.</em></figcaption>
+</figure>
+
+The chosen neural network model is trained for an additional 500 epochs.  Fig.6 shows the training results, where the red curve indicates the loss and the green curve indicates the reward. The loss drops heavily initially and approaches near-zero around epoch 40, and maintains this minimum, indicating that the model has successfully converged. The reward increases over time, exhibiting high variance initially and
+stabilizing after 50 epochs, indicating that the agent has successfully learned the exploration logic
+<figure>
+  <img src="media/MLP_training.png" width="600" >
+  <figcaption><em>Fig. 6: Training result: loss vs reward plot.</em></figcaption>
+</figure>
+
+
+
+The entire target plant species search mission is carried out in the following steps:
+* Take off from the base at the planned time set by the user.
+* High-altitude flight to estimate the locations of target plant species.
+* Initial path planning connecting locations with a higher probability of target plant presence.
+* Begin low-altitude flight along the initial path.
+* UCB-TPS2 suggests sectors with a high probability of target plant species presence, and the UAV dynamically reroutes using DEE-ACS.
+* Continue the mission until the available battery energy budget is sufficient to return to the base.
+* Return to the base.
+
+The high-altitude hover is set to a desired altitude of 50 meters, while the low altitude flight is set at 10 meters.
+
 
 
 
