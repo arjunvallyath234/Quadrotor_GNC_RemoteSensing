@@ -47,7 +47,7 @@ where $\tilde{t}$ is the timestep, $\mathbb{I}(\cdot)$  denotes the indicator fu
 ## Multi-layer Perceptron based value prediction - Superviced Learning
 The neural network (NN) is trained using an exploration logic, which provides the desired values for supervised offline training. This allows the trained model to generalize the exploration logic and perform this operation in any unknown fields. To find the optimal NN architecture, neural architecture search (NAS) is conducted. Then, the learning rate and activation function are selected using hyperparameter optimization (HPO). To conduct HPO and NAS, an AI optimization library called Optuna [6] is used. The Optuna library can automatically build multiple different NN structures, test different learning rates, and test different activation functions, and the best model is selected from the trial results.
 
-The environment for training the NN is a spatial exploration environment, which is a 2D field divided into a grid of sectors given by $s = \[s1,\dots,s_{n_s}\]$. Random planar coordinates and a random canopy score are generated for each sector to simulate target plant discovery during the training phase. The observation is a state vector given as $obs = \[x_i,y_i,n_i,r_i\]$, where $x_i$ and $y_i$ are the planar center coordinates of
+The environment for training the NN is a spatial exploration environment, which is a 2D field divided into a grid of sectors given by $s = \[s_1,\dots,s_{n_s}\]$. Random planar coordinates and a random canopy score are generated for each sector to simulate target plant discovery during the training phase. The observation is a state vector given as $obs = \[x_i,y_i,n_i,r_i\]$, where $x_i$ and $y_i$ are the planar center coordinates of
 sector $i$, $n_i$ is the number of times sector $i$ has been visited, and $r_i$ is the current score of sector $i$. The desired Q-score for sector $i$ is given by,
 
 $$Q(s_i) = \max\left(0,\; d_q + 0.5 r_i - 0.5 n_i \right)$$
@@ -57,6 +57,24 @@ where $d_q$ is the distance between the center of sector $i$ and the quadrotor. 
 $$a_t = \pi(s) = \arg\max_{s_i \in s} Q(s_i)$$
 
 where $a_t$ denotes the action, representing the selected sector.
+
+## Simulation
+
+The algorithm is tested in a ROS + PX4 simulation environment, where the Robot Operating System (ROS) is a general-purpose robotics framework, and PX4 is an open-source autopilot firmware. The vehicle used is the Iris quadrotor, which is modeled within the PX4-Autopilot ecosystem and simulated in the Gazebo environment. The vehicle is equipped with a generic simulated depth camera, modeled to resemble an RGB-D sensor similar to Intel RealSense. The vehicle’s dynamics and control are handled by the PX4 firmware operating in Software-in-the-Loop (SITL) mode. Communication between ROS and the low-level flight control firmware PX4 is managed by the MAVROS package using the MAVLink protocol.
+
+Fig. 4 shows the Gazebo world representing a heterogeneous terrain. The place where the user is located is called the base. In this gazebo world, the base is located at the centre of the terrain of interest, indicated by a white cylinder. The plants growing in the terrain of interest are represented by green-colored cubes. Cubes with random sizes, varying shades of green, and random locations are spawned in the Gazebo world, reflecting that different plant species can have the same shape, grow in random locations, and exhibit different shades of green. 
+<figure>
+  <img src="media/gazebo_env.png" width="300" >
+  <figcaption><em>Fig. 4: Gazebo world representing terrain of interest.</em></figcaption>
+</figure>
+The targets are the light-colored plants between Hue, Saturation, and Value (HSV) range [50, 100, 140] to [70, 255, 255], highlighted by a red bounding box in the high altitude image shown in Fig.5. The scores of the cubes are proportional to their sizes and are normalized using max normalization, which is given as: the score equals the pixel area of the current contour divided by the area of the largest contour found so far in
+the frame.
+<figure>
+  <img src="media/high_alt_img_gazebo.png" width="300" >
+  <figcaption><em>Fig. 5: High altitude image of the terrain of interest in the gazebo world.</em></figcaption>
+</figure>
+
+
 
 ## References
 
