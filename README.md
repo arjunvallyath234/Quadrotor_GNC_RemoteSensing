@@ -100,7 +100,16 @@ The entire target plant species search mission is carried out in the following s
 
 The high-altitude hover is set to a desired altitude of 50 meters, while the low altitude flight is set at 10 meters.
 
-
+<figure style="text-align: center;">
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+    <iframe src="https://www.youtube.com/embed/duWaJdp7LfY" 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+    </iframe>
+  </div>
+  <figcaption style="margin-top: 10px;"><em>Video. 2: SITL Gazebo simulation run mapping discoveries using the dynamic UCB1 exploration and EEPC-ACO path planning loop.</em></figcaption>
+</figure>
 
 
 ## References
