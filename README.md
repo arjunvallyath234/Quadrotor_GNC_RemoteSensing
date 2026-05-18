@@ -125,12 +125,12 @@ Fig. 7 shows the summary plot of the plant search mission. The sectors suggested
             allowfullscreen>
     </iframe>
   </div>
-  <figcaption style="margin-top: 10px;"><em>Video. 2: MLP+ACO simulation progression.</em></figcaption>
+  <figcaption style="margin-top: 10px;"><em>Video. 3: MLP+ACO simulation progression.</em></figcaption>
 </figure>
 Fig. 8 shows the summary plot of the target plant search mission. The sectors suggested by the agent are marked with blue dots. It can be observed that the MLP suggested sectors leading to greater discovery, and ACO included most of the suggested sectors in the path.
 <figure>
   <img src="media/mission_summary_plot_MLP.png" width="600" >
-  <figcaption><em>Fig. 8: UCB1+ACO simulation summary plot.</em></figcaption>
+  <figcaption><em>Fig. 8: MLP+ACO simulation summary plot.</em></figcaption>
 </figure>
 In the MLP+ACO approach, it can be observed that the MLP performs meaningful sector selection by considering the quadrotor position and the states of each sector. Hence, ACO is able to include most of the sectors suggested by the MLP in the updated path, leading to improved discovery and better coverage of target plants detected during high-altitude hover. Overall, the results indicate that, for searching, locating, and quantifying target plant species in a heterogeneous terrain, the approach using MLP combined with the ACO algorithm showcased better performance, in terms of optimal path planning, and successful target plant species discovery compared to the UCB1+ACO approach.
 
