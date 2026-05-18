@@ -1,4 +1,6 @@
 # Autonomous Search, Location, and Quantification of Target Plant Species Using Machine Learning and ACO Path Planning
+### MS Thesis Project | Mechanical Engineering
+**Arjun Vallyath Anil** *University of Louisville*
 
 ## Motivation
 Conventional UAV-based remote sensing utilizes standard coverage algorithms to survey a designated area. These methods typically employ a "lawnmower" pattern, executing a rigid, zig-zag flight path to ensure complete coverage of the terrain. While exhaustive, this approach is highly inefficient when searching for a specific target plant species, as it results in the collection of vast amounts of irrelevant data.
