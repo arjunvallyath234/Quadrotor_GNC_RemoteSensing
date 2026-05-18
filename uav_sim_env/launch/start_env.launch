@@ -1,0 +1,16 @@
+<launch>
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0"/>
+
+    <include file="$(find px4)/launch/mavros_posix_sitl.launch">
+        <arg name="vehicle" value="iris_downward_depth_camera"/>
+        <arg name="world" value="$(find uav_sim_env)/worlds/windy_env.world"/>
+        
+        <arg name="x" value="$(arg x)"/>
+        <arg name="y" value="$(arg y)"/>
+        <arg name="z" value="$(arg z)"/>
+    </include>
+
+    <node pkg="uav_sim_env" type="spawn_targets.py" name="cube_spawner" output="screen" />
+</launch>

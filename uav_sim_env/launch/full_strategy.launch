@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="uav_sim_env" type="flight_strategy_master.py" name="flight_strategy_master" output="screen" />
+
+</launch>
